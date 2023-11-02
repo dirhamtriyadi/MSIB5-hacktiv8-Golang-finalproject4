@@ -49,6 +49,7 @@ func (h *UserController) RegisterUser(c *gin.Context) {
 		FullName:  result.FullName,
 		Email:     result.Email,
 		Password:  result.Password,
+		Balance:   result.Balance,
 		CreatedAt: result.CreatedAt,
 	}
 
@@ -116,6 +117,7 @@ func (h *UserController) UpdateUser(c *gin.Context) {
 		FullName:  userUpdated.FullName,
 		Email:     userUpdated.Email,
 		Password:  userUpdated.Password,
+		Balance:   userUpdated.Balance,
 		UpdatedAt: userUpdated.UpdatedAt,
 	}
 	

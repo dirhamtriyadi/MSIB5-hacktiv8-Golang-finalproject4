@@ -7,6 +7,7 @@ type UserRegisterResponse struct {
 	FullName  string    `json:"full_name"`
 	Email     string    `json:"email"`
 	Password  string    `json:"password"`
+	Balance   int       `json:"balance"`
 	CreatedAt time.Time `json:"created_at"`
 }
 
@@ -19,6 +20,7 @@ type UserUpdateResponse struct {
 	FullName  string    `json:"full_name"`
 	Email     string    `json:"email"`
 	Password  string    `json:"password"`
+	Balance   int       `json:"balance"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
 

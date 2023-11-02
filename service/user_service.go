@@ -38,6 +38,15 @@ func (s *userService) CreateUser(input input.UserRegisterInput) (entity.User, er
 		Email:    input.Email,
 		Password: string(passwordHash),
 		Role:     input.Role,
+		Balance:  input.Balance,
+	}
+
+	if user.Role != "admin" && user.Role != "customer" {
+		return entity.User{}, errors.New("role must be admin or customer")
+	}
+
+	if user.Balance > 100000000 {
+		return entity.User{}, errors.New("balance must be less than 100000000")
 	}
 
 	createdUser, err := s.userRepository.CreateUser(user)
@@ -92,6 +101,7 @@ func (s *userService) UpdateUser(ID int, input input.UserUpdateInput) (entity.Us
 		FullName:  input.FullName,
 		Email:     input.Email,
 		Role:      input.Role,
+		Balance:   input.Balance,
 	}
 
 	if input.Password != "" {
