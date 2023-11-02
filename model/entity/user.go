@@ -8,6 +8,7 @@ type User struct {
 	Email     string `gorm:"unique"`
 	Password  string
 	Role      string
+	Balance   int
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
