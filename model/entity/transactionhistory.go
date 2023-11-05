@@ -4,10 +4,15 @@ import "time"
 
 type TransactionHistory struct {
 	ID         int `gorm:"primaryKey"`
-	ProductID  int `gorm:"type:int"`
-	UserID     int `gorm:"type:int"`
-	Quantity   int `gorm:"type:int"`
-	TotalPrice int `gorm:"type:int"`
+	ProductID  int
+	UserID     int
+	Quantity   int
+	TotalPrice int
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
+	Product    Product `gorm:"foreignKey:ProductID;Constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
+}
+
+func (TransactionHistory) TableName() string {
+	return "transaction_histories"
 }

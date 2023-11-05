@@ -20,10 +20,21 @@ func main() {
 
 	db := postgres.InitDB()
 	db.AutoMigrate(&entity.User{})
+	db.AutoMigrate(&entity.Category{})
+	db.AutoMigrate(&entity.Product{})
+	db.AutoMigrate(&entity.TransactionHistory{})
 
 	userRepository := repository.NewUserRepository(db)
 	userService := service.NewUserService(userRepository)
 	userController := controller.NewUserController(userService)
+
+	productRepository := repository.NewProductRepository(db)
+	productService := service.NewProductService(productRepository)
+	productController := controller.NewProductController(productService)
+
+	categoryRepository := repository.NewCategoryRepository(db)
+	categoryService := service.NewCategoryService(categoryRepository)
+	categoryController := controller.NewCategoryController(categoryService, productService)
 
 	router := gin.Default()
 
@@ -32,6 +43,18 @@ func main() {
 	// router.POST("/users/login", userController.LoginUser)
 	router.PUT("/users/:id", userController.UpdateUser)
 	router.DELETE("/users/:id", userController.DeleteUser)
+
+	// Category
+	router.POST("/categories", categoryController.CreateCategory)
+	router.GET("/categories", categoryController.GetCategory)
+	router.PUT("/categories/:id", categoryController.UpdateCategory)
+	router.DELETE("/categories/:id", categoryController.DeleteCategory)
+
+	// Product
+	router.POST("/products", productController.CreateProduct)
+	router.GET("/products", productController.GetProduct)
+	router.PUT("/products/:id", productController.UpdateProduct)
+	router.DELETE("/products/:id", productController.DeleteProduct)
 
 	router.Run()
 }
