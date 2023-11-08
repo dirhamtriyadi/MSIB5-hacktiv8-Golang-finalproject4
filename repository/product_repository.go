@@ -34,7 +34,7 @@ func (r *productRepository) CreateProduct(product entity.Product) (entity.Produc
 
 func (r *productRepository) FindProductByID(ID int) (entity.Product, error) {
 	var product entity.Product
-	err := r.db.Where("id = ?", ID).First(&product).Error
+	err := r.db.Preload("Category").Where("id = ?", ID).First(&product).Error
 	if err != nil {
 		return product, err
 	}

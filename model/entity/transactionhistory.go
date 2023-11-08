@@ -11,6 +11,7 @@ type TransactionHistory struct {
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 	Product    Product `gorm:"foreignKey:ProductID;Constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
+	User       User    `gorm:"foreignKey:UserID;Constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 }
 
 func (TransactionHistory) TableName() string {
