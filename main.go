@@ -51,16 +51,16 @@ func main() {
 	router.PUT("/users/topup", middleware.AuthMiddleware(), userController.UserTopup)
 
 	// Category
-	router.POST("/categories", middleware.AuthMiddleware(), categoryController.CreateCategory)
-	router.GET("/categories", middleware.AuthMiddleware(), categoryController.GetCategory)
-	router.PUT("/categories/:id", middleware.AuthMiddleware(), categoryController.UpdateCategory)
-	router.DELETE("/categories/:id", middleware.AuthMiddleware(), categoryController.DeleteCategory)
+	router.POST("/categories", middleware.AuthMiddleware(), middleware.IsAdmin(), categoryController.CreateCategory)
+	router.GET("/categories", middleware.AuthMiddleware(), middleware.IsAdmin(), categoryController.GetCategory)
+	router.PUT("/categories/:id", middleware.AuthMiddleware(), middleware.IsAdmin(), categoryController.UpdateCategory)
+	router.DELETE("/categories/:id", middleware.AuthMiddleware(), middleware.IsAdmin(), categoryController.DeleteCategory)
 
 	// Product
-	router.POST("/products", middleware.AuthMiddleware(), productController.CreateProduct)
+	router.POST("/products", middleware.AuthMiddleware(), middleware.IsAdmin(), productController.CreateProduct)
 	router.GET("/products", productController.GetProduct)
-	router.PUT("/products/:id", middleware.AuthMiddleware(), productController.UpdateProduct)
-	router.DELETE("/products/:id", middleware.AuthMiddleware(), productController.DeleteProduct)
+	router.PUT("/products/:id", middleware.AuthMiddleware(), middleware.IsAdmin(), productController.UpdateProduct)
+	router.DELETE("/products/:id", middleware.AuthMiddleware(), middleware.IsAdmin(), productController.DeleteProduct)
 
 	// Transaction History
 	router.POST("/transactionhistories", middleware.AuthMiddleware(), transactionHistoryController.CreateTransactionHistory)
