@@ -6,6 +6,7 @@ import (
 	"project4/infra/postgres"
 	"project4/middleware"
 	"project4/model/entity"
+	"project4/model/seed"
 	"project4/repository"
 	"project4/service"
 
@@ -24,6 +25,8 @@ func main() {
 	db.AutoMigrate(&entity.Category{})
 	db.AutoMigrate(&entity.Product{})
 	db.AutoMigrate(&entity.TransactionHistory{})
+
+	db.Create(&seed.User)
 
 	userRepository := repository.NewUserRepository(db)
 	userService := service.NewUserService(userRepository)
