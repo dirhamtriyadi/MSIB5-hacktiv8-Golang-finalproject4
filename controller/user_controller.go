@@ -266,8 +266,20 @@ func (h *userController) UserTopup(c *gin.Context) {
 		return
 	}
 
+	result, err := h.userService.GetUserByID(currentUser)
+
+	if err != nil {
+		response := helper.APIResponse("failed", gin.H{
+			"Errors": err.Error(),
+		})
+
+		c.JSON(http.StatusBadRequest, response)
+		fmt.Println("error: " + err.Error())
+		return
+	}
+
 	userTopupResponse := response.UserTopupResponse{
-		Message: "Topup success",
+		Message: "Top Up success your balance is " + fmt.Sprintf("%d", result.Balance) + " now",
 	}
 
 	response := helper.APIResponse("ok", userTopupResponse)
