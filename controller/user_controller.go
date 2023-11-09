@@ -106,7 +106,7 @@ func (h *userController) LoginUser(c *gin.Context) {
 
 	// create token
 	jwtService := middleware.NewService()
-	token, err := jwtService.GenerateToken(user.ID)
+	token, err := jwtService.GenerateToken(user.ID, user.Email, user.Role)
 	if err != nil {
 		response := helper.APIResponse("failed", "failed to generate token!")
 		c.JSON(http.StatusBadRequest, response)
@@ -224,5 +224,53 @@ func (h *userController) DeleteUser(c *gin.Context) {
 	}
 
 	response := helper.APIResponse("ok", deletedResponse)
+	c.JSON(http.StatusOK, response)
+}
+
+func (h *userController) UserTopup(c *gin.Context) {
+	var inputUserTopup input.UserTopupInput
+
+	err := c.ShouldBindJSON(&inputUserTopup)
+
+	currentUser := c.MustGet("currentUser").(int)
+
+	if currentUser == 0 {
+		response := helper.APIResponse("failed", gin.H{
+			"Errors": err.Error(),
+		})
+		c.JSON(http.StatusBadRequest, response)
+		fmt.Println("error: " + err.Error())
+		return
+	}
+
+	user, err := govalidator.ValidateStruct(inputUserTopup)
+
+	if !user {
+		response := helper.APIResponse("failed", gin.H{
+			"Errors": err.Error(),
+		})
+		c.JSON(http.StatusBadRequest, response)
+		fmt.Println("error: " + err.Error())
+		return
+	}
+
+	_, err = h.userService.UserTopup(currentUser, inputUserTopup)
+
+	if err != nil {
+		response := helper.APIResponse("failed", gin.H{
+			"Errors": err.Error(),
+		})
+
+		c.JSON(http.StatusBadRequest, response)
+		fmt.Println("error: " + err.Error())
+		return
+	}
+
+	userTopupResponse := response.UserTopupResponse{
+		Message: "Topup success",
+	}
+
+	response := helper.APIResponse("ok", userTopupResponse)
+
 	c.JSON(http.StatusOK, response)
 }

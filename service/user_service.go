@@ -16,6 +16,7 @@ type UserService interface {
 	GetUserByID(ID int) (entity.User, error)
 	UpdateUser(ID int, input input.UserUpdateInput) (entity.User, error)
 	DeleteUser(ID int) (entity.User, error)
+	UserTopup(ID int, input input.UserTopupInput) (entity.User, error)
 }
 
 type userService struct {
@@ -37,8 +38,8 @@ func (s *userService) CreateUser(input input.UserRegisterInput) (entity.User, er
 		FullName: input.FullName,
 		Email:    input.Email,
 		Password: string(passwordHash),
-		Role:     input.Role,
-		Balance:  input.Balance,
+		Role:     "customer",
+		Balance:  0,
 	}
 
 	if user.Role != "admin" && user.Role != "customer" {
@@ -98,10 +99,10 @@ func (s *userService) UpdateUser(ID int, input input.UserUpdateInput) (entity.Us
 	}
 
 	updatedUser := entity.User{
-		FullName:  input.FullName,
-		Email:     input.Email,
-		Role:      input.Role,
-		Balance:   input.Balance,
+		FullName: input.FullName,
+		Email:    input.Email,
+		Role:     input.Role,
+		Balance:  input.Balance,
 	}
 
 	if input.Password != "" {
@@ -114,7 +115,7 @@ func (s *userService) UpdateUser(ID int, input input.UserUpdateInput) (entity.Us
 		updatedUser.Password = string(passwordHash)
 	}
 
-	fmt.Println("dari service ",updatedUser)
+	fmt.Println("dari service ", updatedUser)
 
 	userUpdated, err := s.userRepository.UpdateUser(ID, updatedUser)
 
@@ -143,4 +144,26 @@ func (s *userService) DeleteUser(ID int) (entity.User, error) {
 	}
 
 	return userDeleted, nil
+}
+
+func (s *userService) UserTopup(ID int, input input.UserTopupInput) (entity.User, error) {
+	userResult, err := s.userRepository.FindUserByID(ID)
+
+	if err != nil {
+		return entity.User{}, err
+	}
+
+	if userResult.ID == 0 {
+		return entity.User{}, errors.New("no user found on that ID")
+	}
+
+	userResult.Balance = userResult.Balance + input.Balance
+
+	userTopup, err := s.userRepository.UserTopup(ID, userResult)
+
+	if err != nil {
+		return entity.User{}, err
+	}
+
+	return userTopup, nil
 }

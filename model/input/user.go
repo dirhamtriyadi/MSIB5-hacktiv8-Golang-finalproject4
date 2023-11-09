@@ -4,8 +4,8 @@ type UserRegisterInput struct {
 	FullName string `json:"full_name" valid:"required"`
 	Email    string `json:"email" valid:"required,email"`
 	Password string `json:"password" valid:"required,minstringlength(6)"`
-	Role     string `json:"role" valid:"required"`
-	Balance  int    `json:"balance" valid:"required"`
+	Role     string `json:"role"`
+	Balance  int    `json:"balance"`
 }
 
 type UserLoginInput struct {
@@ -19,6 +19,10 @@ type UserUpdateInput struct {
 	Password string `json:"password" `
 	Role     string `json:"role"`
 	Balance  int    `json:"balance"`
+}
+
+type UserTopupInput struct {
+	Balance int `json:"balance" valid:"required"`
 }
 
 type UserUpdateID struct {

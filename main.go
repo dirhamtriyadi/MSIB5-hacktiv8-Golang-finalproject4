@@ -48,6 +48,7 @@ func main() {
 	router.POST("/users/login", userController.LoginUser)
 	router.PUT("/users/:id", middleware.AuthMiddleware(), userController.UpdateUser)
 	router.DELETE("/users/:id", middleware.AuthMiddleware(), userController.DeleteUser)
+	router.PUT("/users/topup", middleware.AuthMiddleware(), userController.UserTopup)
 
 	// Category
 	router.POST("/categories", middleware.AuthMiddleware(), categoryController.CreateCategory)
@@ -57,14 +58,14 @@ func main() {
 
 	// Product
 	router.POST("/products", middleware.AuthMiddleware(), productController.CreateProduct)
-	router.GET("/products", middleware.AuthMiddleware(), productController.GetProduct)
+	router.GET("/products", productController.GetProduct)
 	router.PUT("/products/:id", middleware.AuthMiddleware(), productController.UpdateProduct)
 	router.DELETE("/products/:id", middleware.AuthMiddleware(), productController.DeleteProduct)
 
 	// Transaction History
 	router.POST("/transactionhistories", middleware.AuthMiddleware(), transactionHistoryController.CreateTransactionHistory)
 	router.GET("/transactionhistories/my-transactions", middleware.AuthMiddleware(), transactionHistoryController.GetMyTransactionHistory)
-	router.GET("/transactionhistories/user-transactions", middleware.AuthMiddleware(), transactionHistoryController.GetAllTransactionHistory)
+	router.GET("/transactionhistories/user-transactions", middleware.AuthMiddleware(), middleware.IsAdmin(), transactionHistoryController.GetAllTransactionHistory)
 
 	router.Run()
 }

@@ -13,7 +13,7 @@ type UserRepository interface {
 	FindUserByID(ID int) (entity.User, error)
 	UpdateUser(ID int, user entity.User) (entity.User, error)
 	DeleteUser(ID int) (entity.User, error)
-	
+	UserTopup(ID int, user entity.User) (entity.User, error)
 }
 
 type userRepository struct {
@@ -56,7 +56,7 @@ func (r *userRepository) FindUserByID(id int) (entity.User, error) {
 }
 
 func (r *userRepository) UpdateUser(ID int, user entity.User) (entity.User, error) {
-	fmt.Println("dari repository ",user)
+	fmt.Println("dari repository ", user)
 	err := r.db.Where("id = ?", ID).Updates(&user).Error
 
 	if err != nil {
@@ -78,4 +78,14 @@ func (r *userRepository) DeleteUser(ID int) (entity.User, error) {
 	}
 
 	return userDeleted, nil
+}
+
+func (r *userRepository) UserTopup(ID int, user entity.User) (entity.User, error) {
+	err := r.db.Where("id = ?", ID).Updates(&user).Error
+
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
 }

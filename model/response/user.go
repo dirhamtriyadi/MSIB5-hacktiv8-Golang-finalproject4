@@ -24,6 +24,10 @@ type UserUpdateResponse struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
+type UserTopupResponse struct {
+	Message string `json:"message"`
+}
+
 type UserDeleteResponse struct {
 	Message string `json:"message"`
 }
