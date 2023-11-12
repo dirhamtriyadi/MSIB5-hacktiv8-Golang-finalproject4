@@ -9,10 +9,9 @@ import (
 var passwordHash, _ = bcrypt.GenerateFromPassword([]byte("admin"), bcrypt.MinCost)
 
 var User = entity.User{
-	ID:       1,
-	FullName: "admin",
-	Email:    "admin@gmail.com",
+	FullName: "superadmin",
+	Email:    "superadmin@gmail.com",
 	Password: string(passwordHash),
-	Role:     "admin",
+	Role:     "superadmin",
 	Balance:  0,
 }
