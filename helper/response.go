@@ -1,8 +1,9 @@
 package helper
 
 type Response struct {
-	Status string      `json:"status"`
-	Data   interface{} `json:"data"`
+	Status  string      `json:"status"`
+	Message string      `json:"message,omitempty"`
+	Data    interface{} `json:"data,omitempty"`
 }
 
 func APIResponse(status string, data interface{}) Response {
@@ -12,4 +13,14 @@ func APIResponse(status string, data interface{}) Response {
 	}
 
 	return jsonResponse
+}
+
+func TransAPIResponse(status, message string, data interface{}) Response {
+	jsonTransResponse := Response{
+		Status:  status,
+		Message: message,
+		Data:    data,
+	}
+
+	return jsonTransResponse
 }

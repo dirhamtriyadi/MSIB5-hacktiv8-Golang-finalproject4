@@ -69,7 +69,9 @@ func (h *transactionHistoryController) CreateTransactionHistory(c *gin.Context) 
 		ProductTitle: product.Title,
 	}
 
-	response := helper.APIResponse("created", transactionHistoryResponse)
+	message := "You have succesfully purchased the product"
+
+	response := helper.TransAPIResponse("created", message, transactionHistoryResponse)
 	c.JSON(http.StatusCreated, response)
 }
 
