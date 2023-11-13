@@ -6,7 +6,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var passwordHash, _ = bcrypt.GenerateFromPassword([]byte("admin"), bcrypt.MinCost)
+var passwordHash, _ = bcrypt.GenerateFromPassword([]byte("superadmin"), bcrypt.MinCost)
 
 var User = entity.User{
 	FullName: "superadmin",
