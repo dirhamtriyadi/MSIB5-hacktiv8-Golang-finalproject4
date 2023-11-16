@@ -107,7 +107,7 @@ DELETE Categories
 
 
 ### Products
-Berikut ini adalah beberapa endpoint yang dapat diakses untuk tabel Tasks
+Berikut ini adalah beberapa endpoint yang dapat diakses untuk tabel Products
 
 | Method | URL |
 | ------ | ------ |
@@ -163,8 +163,8 @@ DELETE Products
 #
 
 
-### Products
-Berikut ini adalah beberapa endpoint yang dapat diakses untuk tabel Tasks
+### TransactionHistories
+Berikut ini adalah beberapa endpoint yang dapat diakses untuk tabel TransactionHistories
 
 | Method | URL |
 | ------ | ------ |
