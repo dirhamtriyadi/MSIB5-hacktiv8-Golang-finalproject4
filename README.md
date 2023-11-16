@@ -111,10 +111,10 @@ Berikut ini adalah beberapa endpoint yang dapat diakses untuk tabel Products
 
 | Method | URL |
 | ------ | ------ |
-| POST | [https://fp3-hacktiv8-production.up.railway.app/products] |
-| GET | [https://fp3-hacktiv8-production.up.railway.app/products] |
-| PUT | [https://fp3-hacktiv8-production.up.railway.app/products/:productId] |
-| DELETE | [https://fp3-hacktiv8-production.up.railway.app/products/:productId] |
+| POST | [https://fp4-hacktiv8-production.up.railway.app/products] |
+| GET | [https://fp4-hacktiv8-production.up.railway.app/products] |
+| PUT | [https://fp4-hacktiv8-production.up.railway.app/products/:productId] |
+| DELETE | [https://fp4-hacktiv8-production.up.railway.app/products/:productId] |
 
 ###### Daftar request Products
 
