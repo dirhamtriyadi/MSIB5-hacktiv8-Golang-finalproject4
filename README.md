@@ -160,3 +160,41 @@ DELETE Products
 -Param categoryID <br />
 
 > Note: Seluruh endpoint kecuali GET hanya bisa diakses oleh user dengan role admin, sehingga perlu memasukan bearer token terlebih dahulu. Token didapatkan melalui response client saat melakukan login. Untuk methode PUT dan DELETE diperlukan parameter Id pada URL. 
+#
+
+
+### Products
+Berikut ini adalah beberapa endpoint yang dapat diakses untuk tabel Tasks
+
+| Method | URL |
+| ------ | ------ |
+| POST | [https://fp4-hacktiv8-production.up.railway.app/transactionhistories] |
+| GET | [https://fp4-hacktiv8-production.up.railway.app/transactionhistories/my-transactions] |
+| GET | [https://fp4-hacktiv8-production.up.railway.app/transactionhistories/user-transactions] 
+
+###### Daftar request TransactionHistories
+
+POST transactions
+
+-Bearer Token <br />
+
+ ```sh
+{
+    "product_id": integer,
+    "quantity": integer
+}
+```
+#
+
+GET my-transactions 
+
+-Bearer Token <br />
+
+#
+
+GET user-transactions
+
+-Bearer Token <br />
+
+
+> Note: Seluruh endpoint diperlukan autentikasi sehingga diharuskan memasukan bearer token terlebih dahulu. Token didapatkan melalui response client saat melakukan login. Untuk methode GET user-transactions hanya dapat diakses oleh user dengan role admin. 
