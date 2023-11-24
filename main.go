@@ -49,14 +49,12 @@ func main() {
 	// Users
 	router.POST("/users/register", userController.RegisterUser)
 	router.POST("/users/login", userController.LoginUser)
-	router.PUT("/users/:id", middleware.AuthMiddleware(), userController.UpdateUser)
-	router.DELETE("/users/:id", middleware.AuthMiddleware(), userController.DeleteUser)
 	router.PUT("/users/topup", middleware.AuthMiddleware(), userController.UserTopup)
 
 	// Category
 	router.POST("/categories", middleware.AuthMiddleware(), middleware.IsAdmin(), categoryController.CreateCategory)
 	router.GET("/categories", middleware.AuthMiddleware(), middleware.IsAdmin(), categoryController.GetCategory)
-	router.PUT("/categories/:id", middleware.AuthMiddleware(), middleware.IsAdmin(), categoryController.UpdateCategory)
+	router.PATCH("/categories/:id", middleware.AuthMiddleware(), middleware.IsAdmin(), categoryController.UpdateCategory)
 	router.DELETE("/categories/:id", middleware.AuthMiddleware(), middleware.IsAdmin(), categoryController.DeleteCategory)
 
 	// Product
